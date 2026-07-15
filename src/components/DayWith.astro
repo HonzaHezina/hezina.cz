@@ -1,0 +1,169 @@
+---
+const DAY_EVENTS = [
+  {
+    time: '07:30',
+    title: 'Ráno: shrnutí přes noc',
+    body: 'Než dorazíte do kanceláře, AI prošla přes noc 47 emailů. Prioritní 3 jsou nahoře, návrhy odpovědí připravené, zbytek odmazán nebo odložen.',
+    output: '3 emaily čekají na vás · 8 vyřešeno automaticky · 36 archiv',
+  },
+  {
+    time: '09:15',
+    title: 'Klient volá',
+    body: 'Volá pan Novák. Ptáte se Jarvise: „Co je s jeho zakázkou?" Za 2 vteřiny máte stav, poslední emaily i platby — během hovoru.',
+    output: 'Termín 12. 5. · čeká schválení doložky · poslední platba 22. 4.',
+  },
+  {
+    time: '11:00',
+    title: 'Schůzka s týmem',
+    body: 'Před schůzkou: „Připrav mi přehled za tento týden." AI shrne, co se hnulo, kde jsou skluzy, kde je třeba rozhodnutí. Žádné rozkopávání tabulek.',
+    output: '2 zakázky v termínu · 1 skluz 3 dny · 4 čekají na vaše rozhodnutí',
+  },
+  {
+    time: '14:30',
+    title: 'Hledání smlouvy',
+    body: 'Potřebujete dodatek smlouvy s ABC z minulého roku. „Najdi mi dodatek 2 ke smlouvě ABC." AI to najde dřív, než byste otevřeli složku.',
+    output: 'Dodatek_ABC_2.pdf · podepsán 14. 3. 2025 · stále platný',
+  },
+  {
+    time: '16:45',
+    title: 'Faktury na zítra',
+    body: '„Co musím zítra zaplatit?" AI vyjede splatnost, částky a přiloží návrh příkazu. Vy jen mrknete a schválíte v bance.',
+    output: '4 faktury · 187 340 Kč · příkaz připraven',
+  },
+  {
+    time: '17:30',
+    title: 'Konec dne',
+    body: 'Před odchodem: „Připrav co mám nejdřív zítra." Krátký itinerář na ráno. Žádné překvapení.',
+    output: '8:30 hovor s Petrou · 10:00 schůzka Novák · 13:00 oběd s ABC',
+  },
+];
+---
+
+<section class="section" id="den">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Den s Jarvisem</span>
+      <h2>Jeden běžný den<br />s AI po ruce.</h2>
+      <p>
+        Klikněte na hodiny a uvidíte, co Jarvis dělá v tu chvíli za vás. Nic abstraktního — konkrétní situace, které
+        u vás ve firmě nastávají denně.
+      </p>
+    </div>
+
+    <div class="day">
+      <div class="day__rail" role="tablist" aria-label="Časová osa dne" id="day-rail">
+        {
+          DAY_EVENTS.map((ev, i) => (
+            <button role="tab" aria-selected={i === 0} class={'day__tick' + (i === 0 ? ' is-active' : '')} data-idx={i}>
+              <span class="day__time">{ev.time}</span>
+              <span class="day__title-mini">{ev.title.split(':')[0]}</span>
+            </button>
+          ))
+        }
+        <div class="day__progress" id="day-progress" style="--pct: 0%"></div>
+      </div>
+
+      <div class="day__panel" id="day-panel">
+        <div class="day__panel-time" id="day-panel-time">{DAY_EVENTS[0].time}</div>
+        <h3 class="day__panel-title" id="day-panel-title">{DAY_EVENTS[0].title}</h3>
+        <p class="day__panel-body" id="day-panel-body">{DAY_EVENTS[0].body}</p>
+
+        <div class="day__output">
+          <span class="day__output-label">Co dostanete</span>
+          <code id="day-panel-output">{DAY_EVENTS[0].output}</code>
+        </div>
+
+        <div class="day__nav">
+          <button type="button" class="btn btn--ghost btn--sm" id="day-prev" disabled>← Dřív</button>
+          <span class="day__counter mono" id="day-counter">1 / {DAY_EVENTS.length}</span>
+          <button type="button" class="btn btn--ghost btn--sm" id="day-next">Později →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const DAY_EVENTS = [
+    {
+      time: '07:30',
+      title: 'Ráno: shrnutí přes noc',
+      body: 'Než dorazíte do kanceláře, AI prošla přes noc 47 emailů. Prioritní 3 jsou nahoře, návrhy odpovědí připravené, zbytek odmazán nebo odložen.',
+      output: '3 emaily čekají na vás · 8 vyřešeno automaticky · 36 archiv',
+    },
+    {
+      time: '09:15',
+      title: 'Klient volá',
+      body: 'Volá pan Novák. Ptáte se Jarvise: „Co je s jeho zakázkou?" Za 2 vteřiny máte stav, poslední emaily i platby — během hovoru.',
+      output: 'Termín 12. 5. · čeká schválení doložky · poslední platba 22. 4.',
+    },
+    {
+      time: '11:00',
+      title: 'Schůzka s týmem',
+      body: 'Před schůzkou: „Připrav mi přehled za tento týden." AI shrne, co se hnulo, kde jsou skluzy, kde je třeba rozhodnutí. Žádné rozkopávání tabulek.',
+      output: '2 zakázky v termínu · 1 skluz 3 dny · 4 čekají na vaše rozhodnutí',
+    },
+    {
+      time: '14:30',
+      title: 'Hledání smlouvy',
+      body: 'Potřebujete dodatek smlouvy s ABC z minulého roku. „Najdi mi dodatek 2 ke smlouvě ABC." AI to najde dřív, než byste otevřeli složku.',
+      output: 'Dodatek_ABC_2.pdf · podepsán 14. 3. 2025 · stále platný',
+    },
+    {
+      time: '16:45',
+      title: 'Faktury na zítra',
+      body: '„Co musím zítra zaplatit?" AI vyjede splatnost, částky a přiloží návrh příkazu. Vy jen mrknete a schválíte v bance.',
+      output: '4 faktury · 187 340 Kč · příkaz připraven',
+    },
+    {
+      time: '17:30',
+      title: 'Konec dne',
+      body: 'Před odchodem: „Připrav co mám nejdřív zítra." Krátký itinerář na ráno. Žádné překvapení.',
+      output: '8:30 hovor s Petrou · 10:00 schůzka Novák · 13:00 oběd s ABC',
+    },
+  ];
+
+  const rail = document.getElementById('day-rail') as HTMLElement;
+  const progress = document.getElementById('day-progress') as HTMLElement;
+  const panelTime = document.getElementById('day-panel-time') as HTMLElement;
+  const panelTitle = document.getElementById('day-panel-title') as HTMLElement;
+  const panelBody = document.getElementById('day-panel-body') as HTMLElement;
+  const panelOutput = document.getElementById('day-panel-output') as HTMLElement;
+  const counter = document.getElementById('day-counter') as HTMLElement;
+  const prevBtn = document.getElementById('day-prev') as HTMLButtonElement;
+  const nextBtn = document.getElementById('day-next') as HTMLButtonElement;
+
+  let active = 0;
+
+  function render() {
+    const e = DAY_EVENTS[active];
+    rail.querySelectorAll('.day__tick').forEach((btn, i) => {
+      btn.classList.toggle('is-active', i === active);
+      btn.classList.toggle('is-past', i < active);
+      btn.setAttribute('aria-selected', String(i === active));
+    });
+    progress.style.setProperty('--pct', (active / (DAY_EVENTS.length - 1)) * 100 + '%');
+    panelTime.textContent = e.time;
+    panelTitle.textContent = e.title;
+    panelBody.textContent = e.body;
+    panelOutput.textContent = e.output;
+    counter.textContent = `${active + 1} / ${DAY_EVENTS.length}`;
+    prevBtn.disabled = active === 0;
+    nextBtn.disabled = active === DAY_EVENTS.length - 1;
+  }
+
+  rail.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button[data-idx]') as HTMLButtonElement | null;
+    if (!btn) return;
+    active = Number(btn.dataset.idx);
+    render();
+  });
+  prevBtn.addEventListener('click', () => {
+    active = Math.max(0, active - 1);
+    render();
+  });
+  nextBtn.addEventListener('click', () => {
+    active = Math.min(DAY_EVENTS.length - 1, active + 1);
+    render();
+  });
+</script>

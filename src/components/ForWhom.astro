@@ -1,0 +1,41 @@
+---
+const yes = [
+  'Firmy s 5–50 lidmi, kde lidi tráví hodiny rutinou',
+  'Majitelé, kteří chtějí AI, ale ne chaos',
+  'Firmy, které chtějí mít svá data pod kontrolou',
+  'Lidi, kteří už něco zkusili a chtějí to dotáhnout',
+];
+const no = [
+  'Kdo hledá nejlevnějšího chatbota',
+  'Kdo chce „AI za 5 minut" bez přemýšlení',
+  'Kdo nemá čas ani na 20minutový hovor',
+  'Kdo nechce, aby to ve firmě někdo schvaloval',
+];
+---
+
+<section class="section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Pro koho to je</span>
+      <h2>Buďme upřímní.<br />Není to pro každého.</h2>
+      <p>
+        Raději hned řeknu, kdy spolupráce nedává smysl, než abychom si oba zbytečně brali čas. Tady je můj filtr.
+      </p>
+    </div>
+
+    <div class="fw-grid">
+      <div class="fw fw--yes">
+        <h3><span class="fw__badge">Pro koho ano</span></h3>
+        <ul class="fw__list">
+          {yes.map((x) => <li>{x}</li>)}
+        </ul>
+      </div>
+      <div class="fw fw--no">
+        <h3><span class="fw__badge">Pro koho ne</span></h3>
+        <ul class="fw__list">
+          {no.map((x) => <li>{x}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

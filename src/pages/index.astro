@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import NoBS from '../components/NoBS.astro';
+import DayWith from '../components/DayWith.astro';
+import CTAStrip from '../components/CTAStrip.astro';
+import Services from '../components/Services.astro';
+import Process from '../components/Process.astro';
+import Cases from '../components/Cases.astro';
+import Calculator from '../components/Calculator.astro';
+import FitCheck from '../components/FitCheck.astro';
+import MagicVsOps from '../components/MagicVsOps.astro';
+import About from '../components/About.astro';
+import ForWhom from '../components/ForWhom.astro';
+import Pricing from '../components/Pricing.astro';
+import FAQ from '../components/FAQ.astro';
+import Editorial from '../components/Editorial.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
+import StickyCTA from '../components/StickyCTA.astro';
+---
+
+<Layout>
+  <Nav />
+  <main>
+    <!-- ── HOOK ── -->
+    <Hero />
+    <NoBS />
+
+    <!-- ── KILLER DEMO ── -->
+    <DayWith />
+
+    <CTAStrip title="Zní to dobře?" sub="20 minut zdarma. Podíváme se, kde u vás AI ušetří nejvíc času." />
+
+    <!-- ── OFFERINGS ── -->
+    <Services />
+    <Process />
+
+    <!-- ── PROOF ── -->
+    <Cases />
+    <Calculator />
+
+    <CTAStrip
+      title="Spočítali jste. Co dál?"
+      sub="Pošlu vám nezávazný odhad pro vaši firmu. Bez prodejního tlaku."
+      btn="Domluvit nezávazný hovor →"
+    />
+
+    <!-- ── QUALIFY ── -->
+    <FitCheck />
+
+    <!-- ── PHILOSOPHY & TRUST ── -->
+    <MagicVsOps />
+    <About />
+    <ForWhom />
+    <Pricing />
+
+    <!-- ── ANSWERS ── -->
+    <FAQ />
+
+    <!-- ── EMOTIONAL CLOSE ── -->
+    <Editorial />
+
+    <!-- ── CONVERT ── -->
+    <Contact />
+  </main>
+  <Footer />
+
+  <StickyCTA />
+</Layout>

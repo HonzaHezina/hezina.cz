@@ -1,0 +1,41 @@
+---
+const rejected = [
+  'transformace',
+  'disrupce',
+  'revoluce',
+  'paradigm shift',
+  '10× zrychlení',
+  'AI-first',
+  'next-gen',
+  'synergie',
+  'inovativní řešení',
+  'industry 4.0',
+];
+const kept = [
+  'konkrétní ceny',
+  'konkrétní hodiny',
+  'konkrétní reference',
+  'co AI umí',
+  'co neumí',
+  'kdy to nedává smysl',
+];
+---
+
+<section class="nobs">
+  <div class="container">
+    <div class="nobs__grid">
+      <div class="nobs__col nobs__col--out">
+        <div class="nobs__label">Tady nenajdete</div>
+        <ul class="nobs__list nobs__list--strike">
+          {rejected.map((w) => <li>{w}</li>)}
+        </ul>
+      </div>
+      <div class="nobs__col nobs__col--in">
+        <div class="nobs__label">Najdete</div>
+        <ul class="nobs__list">
+          {kept.map((w) => <li>{w}</li>)}
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

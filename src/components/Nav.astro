@@ -1,0 +1,123 @@
+---
+const links: [string, string][] = [
+  ['#sluzby', 'Co nabízím'],
+  ['#den', 'Jak to vypadá'],
+  ['#diagnostika', 'Je to pro vás?'],
+  ['#cena', 'Cena'],
+  ['#kontakt', 'Kontakt'],
+];
+---
+
+<header class="nav" id="nav">
+  <div class="container nav__inner">
+    <a href="#top" class="brand" id="nav-brand-link">
+      <span class="brand__mark">JH</span>
+      <span>Jan Hezina</span>
+      <span class="brand__sub">— AI pro firmu</span>
+    </a>
+
+    <nav class="nav__links" aria-label="Sekce">
+      {links.map(([h, l]) => <a href={h}>{l}</a>)}
+    </nav>
+
+    <div class="nav__cta">
+      <button
+        type="button"
+        class="theme-btn"
+        id="theme-toggle"
+        aria-label="Přepnout na tmavý režim"
+        title="Tmavý režim"
+      >
+        <svg
+          id="theme-icon-dark"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="12" cy="12" r="4"></circle>
+          <path
+            d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+          ></path>
+        </svg>
+        <svg
+          id="theme-icon-light"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          style="display: none"
+        >
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+      <a href="#kontakt" class="btn btn--ghost btn--sm">Domluvit hovor</a>
+      <button class="nav__burger" id="nav-burger" aria-label="Otevřít menu" aria-expanded="false">
+        <span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="mobile-menu">
+  {links.map(([h, l]) => <a href={h}>{l}</a>)}
+  <a href="#kontakt" style="color: var(--blue-deep); font-weight: 600">Domluvit hovor →</a>
+</div>
+
+<script>
+  const nav = document.getElementById('nav');
+  const burger = document.getElementById('nav-burger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const themeToggle = document.getElementById('theme-toggle');
+  const iconDark = document.getElementById('theme-icon-dark');
+  const iconLight = document.getElementById('theme-icon-light');
+
+  function onScroll() {
+    nav?.classList.toggle('is-scrolled', window.scrollY > 8);
+  }
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  function setMenuOpen(open: boolean) {
+    mobileMenu?.classList.toggle('is-open', open);
+    burger?.setAttribute('aria-expanded', String(open));
+    burger?.setAttribute('aria-label', open ? 'Zavřít menu' : 'Otevřít menu');
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  burger?.addEventListener('click', () => {
+    setMenuOpen(!mobileMenu?.classList.contains('is-open'));
+  });
+  mobileMenu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenuOpen(false)));
+  document.getElementById('nav-brand-link')?.addEventListener('click', () => setMenuOpen(false));
+
+  function syncThemeIcon() {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (iconDark) (iconDark as HTMLElement).style.display = isDark ? 'none' : '';
+    if (iconLight) (iconLight as HTMLElement).style.display = isDark ? '' : 'none';
+    themeToggle?.setAttribute('aria-label', isDark ? 'Přepnout na světlý režim' : 'Přepnout na tmavý režim');
+    themeToggle?.setAttribute('title', isDark ? 'Světlý režim' : 'Tmavý režim');
+  }
+  syncThemeIcon();
+
+  themeToggle?.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+    try {
+      localStorage.setItem('hez_theme', isDark ? 'light' : 'dark');
+    } catch (e) {}
+    syncThemeIcon();
+  });
+</script>

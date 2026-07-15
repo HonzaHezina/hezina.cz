@@ -1,0 +1,123 @@
+---
+const CASES = [
+  {
+    industry: 'Výrobní firma',
+    size: '40 lidí',
+    problem: 'Tým obchodu trávil hodiny denně psaním stejných odpovědí klientům.',
+    solution: 'AI asistent čte poptávky, vyhledá historii klienta, navrhne odpověď. Obchodník schválí a odešle.',
+    metrics: [
+      { v: '~35 %', l: 'rychlejší zpracování' },
+      { v: '6 h', l: 'týdně zpět / člověk' },
+      { v: '0', l: 'vynechaných odpovědí' },
+    ],
+    quote: 'Předtím to byly hodiny denně. Teď schválím deset emailů u kafe.',
+    role: 'majitel firmy',
+  },
+  {
+    industry: 'Účetní kancelář',
+    size: '12 lidí',
+    problem: 'Hledání ve stovkách klientských složek a dohledávání faktur zabíralo víc času než samotná práce.',
+    solution: 'AI napojená na DMS a účetní systém. Stačí zeptat se přirozenou řečí: „Faktury klienta X za leden."',
+    metrics: [
+      { v: '~50 %', l: 'méně času hledáním' },
+      { v: '3 s', l: 'odpověď na dotaz' },
+      { v: '100 %', l: 'dohledatelnost' },
+    ],
+    quote: 'Když mi volá klient, mám odpověď dřív, než dokončí otázku.',
+    role: 'jednatelka',
+  },
+  {
+    industry: 'Stavební firma',
+    size: '25 lidí',
+    problem: 'Stavbyvedoucí ztráceli přehled o termínech, dodavatelích a stavu zakázek napříč 8 projekty.',
+    solution: 'AI hlídá termíny, hlásí skluzy, ráno připraví přehled. Schvalovací workflow pro objednávky.',
+    metrics: [
+      { v: '0', l: 'zapomenutých termínů' },
+      { v: '~25 %', l: 'rychlejší fakturace' },
+      { v: '8', l: 'projektů pod kontrolou' },
+    ],
+    quote: 'Konečně vím, co mi zítra spadne na hlavu, než to spadne.',
+    role: 'stavbyvedoucí',
+  },
+];
+---
+
+<section class="section section--soft" id="reference">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Reference</span>
+      <h2>Co se povedlo<br />u jiných firem.</h2>
+      <p>
+        Konkrétní příklady z nasazených systémů. Jména klientů jsou anonymizovaná — číslo zaměstnanců a obor sedí.
+        Po dohodě rád spojím s referencí.
+      </p>
+    </div>
+
+    <div class="cases">
+      <div class="cases__tabs" role="tablist" id="cases-tabs">
+        {
+          CASES.map((c, i) => (
+            <button role="tab" aria-selected={i === 0} class={'cases__tab' + (i === 0 ? ' is-active' : '')} data-idx={i}>
+              <span class="cases__tab-num mono">0{i + 1}</span>
+              <span class="cases__tab-name">{c.industry}</span>
+              <span class="cases__tab-size">{c.size}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      {
+        CASES.map((c, i) => (
+          <div class="cases__panel" data-panel={i} style={i === 0 ? undefined : { display: 'none' }}>
+            <div class="cases__panel-head">
+              <div>
+                <div class="cases__industry">
+                  {c.industry} · {c.size}
+                </div>
+                <h3 class="cases__problem">{c.problem}</h3>
+              </div>
+            </div>
+
+            <div class="cases__solution">
+              <span class="cases__label">Co jsme udělali</span>
+              <p>{c.solution}</p>
+            </div>
+
+            <div class="cases__metrics">
+              {c.metrics.map((m) => (
+                <div class="cases__metric">
+                  <strong>{m.v}</strong>
+                  <span>{m.l}</span>
+                </div>
+              ))}
+            </div>
+
+            <blockquote class="cases__quote">
+              <p>{c.quote}</p>
+              <cite>— {c.role}</cite>
+            </blockquote>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.getElementById('cases-tabs') as HTMLElement;
+  const panels = document.querySelectorAll('.cases__panel') as NodeListOf<HTMLElement>;
+
+  tabs.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button[data-idx]') as HTMLButtonElement | null;
+    if (!btn) return;
+    const idx = btn.dataset.idx;
+
+    tabs.querySelectorAll('.cases__tab').forEach((t) => {
+      t.classList.toggle('is-active', t === btn);
+      t.setAttribute('aria-selected', String(t === btn));
+    });
+    panels.forEach((p) => {
+      p.style.display = p.dataset.panel === idx ? '' : 'none';
+    });
+  });
+</script>

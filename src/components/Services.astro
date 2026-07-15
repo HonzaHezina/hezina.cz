@@ -1,0 +1,133 @@
+---
+const SERVICES = [
+  {
+    id: 'implementace',
+    tag: 'Hlavní služba',
+    title: 'Implementace AI asistenta',
+    lead: 'Postavím vám AI asistenta na míru. Napojený na vaše emaily, dokumenty a zakázky. Od prvního hovoru po běžící systém za 2–4 týdny.',
+    bullets: [
+      'Analýza, kde AI ušetří nejvíc času',
+      'Nastavení a napojení na vaše systémy',
+      'Zaškolení vás i vašeho týmu',
+      'Průběžný rozvoj a podpora',
+    ],
+    price: 'od 50 000 Kč',
+    priceNote: '+ měsíční paušál',
+    cta: 'Vidět cenu →',
+    href: '#cena',
+  },
+  {
+    id: 'skoleni',
+    tag: 'Pro celý tým',
+    title: 'Školení AI pro firmy',
+    lead: 'Praktický kurz, jak AI reálně používat ve firmě. Žádné teoretické přednášky — píšeme prompty na vašich případech, řešíme vaše problémy.',
+    bullets: [
+      'Půldenní nebo celodenní workshop',
+      'Až 12 lidí v jedné skupině',
+      'Vlastní firemní příklady, ne hraní si',
+      'U vás v kanceláři nebo online',
+    ],
+    price: '15 000 Kč',
+    priceNote: 'půlden / skupina',
+    cta: 'Domluvit termín →',
+    href: '#kontakt',
+  },
+  {
+    id: 'konzultace',
+    tag: 'Než se rozhodnete',
+    title: 'AI audit & konzultace',
+    lead: 'Než investujete do AI, podívám se, jestli to u vás dává smysl. Co automatizovat, co ne. Konkrétní doporučení do týdne.',
+    bullets: [
+      'Mapování vašich procesů',
+      'Co AI zvládne dnes vs. za rok',
+      'Konkrétní odhad úspory času',
+      'Návrh prvního kroku (i bez mé další účasti)',
+    ],
+    price: '20 000 Kč',
+    priceNote: 'jednorázově · 1 týden',
+    cta: 'Mám zájem →',
+    href: '#kontakt',
+  },
+];
+---
+
+<section class="section" id="sluzby">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Co nabízím</span>
+      <h2>Tři způsoby,<br />jak vám můžu pomoct.</h2>
+      <p>
+        Nemusíte hned skočit do plné implementace. Můžeme začít školením nebo auditem — podle toho, kde jste teď.
+        Vyberte si.
+      </p>
+    </div>
+
+    <div class="svc">
+      <div class="svc__tabs" role="tablist" id="svc-tabs">
+        {
+          SERVICES.map((s, i) => (
+            <button
+              role="tab"
+              aria-selected={i === 0}
+              class={'svc__tab' + (i === 0 ? ' is-active' : '')}
+              data-id={s.id}
+            >
+              <span class="svc__tab-tag mono">{s.tag}</span>
+              <span class="svc__tab-title">{s.title}</span>
+              <span class="svc__tab-price">{s.price}</span>
+            </button>
+          ))
+        }
+      </div>
+
+      {
+        SERVICES.map((s, i) => (
+          <div class="svc__panel" data-panel={s.id} style={i === 0 ? undefined : { display: 'none' }}>
+            <div class="svc__panel-grid">
+              <div>
+                <span class="svc__panel-tag mono">{s.tag}</span>
+                <h3>{s.title}</h3>
+                <p class="svc__lead">{s.lead}</p>
+                <ul class="svc__list">
+                  {s.bullets.map((b) => (
+                    <li>{b}</li>
+                  ))}
+                </ul>
+              </div>
+              <div class="svc__price-card">
+                <div class="svc__price-tag mono">Cena</div>
+                <div class="svc__price-amount">{s.price}</div>
+                <div class="svc__price-note">{s.priceNote}</div>
+                <a href={s.href} class="btn btn--blue btn--lg svc__cta">
+                  {s.cta}
+                </a>
+                <p class="svc__price-foot">
+                  Nevíte, co si vybrat? <a href="#kontakt">Napište mi</a> — poradím.
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  const tabs = document.getElementById('svc-tabs') as HTMLElement;
+  const panels = document.querySelectorAll('.svc__panel') as NodeListOf<HTMLElement>;
+
+  tabs.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('button[data-id]') as HTMLButtonElement | null;
+    if (!btn) return;
+    const id = btn.dataset.id;
+
+    tabs.querySelectorAll('.svc__tab').forEach((t) => {
+      t.classList.toggle('is-active', t === btn);
+      t.setAttribute('aria-selected', String(t === btn));
+    });
+    panels.forEach((p) => {
+      p.style.display = p.dataset.panel === id ? '' : 'none';
+    });
+  });
+</script>

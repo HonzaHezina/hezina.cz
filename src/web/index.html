@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Jan Hezina — AI asistent, který zná vaši firmu</title>
+<meta name="description" content="Váš vlastní Jarvis pro firmu. AI asistent napojený na vaše emaily, dokumenty a zakázky. Postupně přebírá rutinní práci. Vaše data zůstávají vaše." />
+<meta property="og:title" content="Jan Hezina — AI asistent, který zná vaši firmu" />
+<meta property="og:description" content="AI asistent napojený na vaše emaily, dokumenty a zakázky. Učí se, jak vaše firma funguje." />
+<meta property="og:type" content="website" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%231f4ed8'/%3E%3Ctext x='16' y='22' font-family='Geist,Inter,sans-serif' font-size='18' font-weight='700' text-anchor='middle' fill='white'%3EJ%3C/text%3E%3C/svg%3E" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="styles.css" />
+
+<script>
+// Dark mode init — read before paint to avoid flash
+(function() {
+  try {
+    var saved = localStorage.getItem('hez_theme');
+    if (saved === 'dark' || (saved == null && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch(e) {}
+})();
+</script>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="components/Nav.jsx"></script>
+<script type="text/babel" src="components/Hero.jsx"></script>
+<script type="text/babel" src="components/NoBS.jsx"></script>
+<script type="text/babel" src="components/MagicVsOps.jsx"></script>
+<script type="text/babel" src="components/Editorial.jsx"></script>
+<script type="text/babel" src="components/Benefits.jsx"></script>
+<script type="text/babel" src="components/DayWith.jsx"></script>
+<script type="text/babel" src="components/Calculator.jsx"></script>
+<script type="text/babel" src="components/Stack.jsx"></script>
+<script type="text/babel" src="components/Services.jsx"></script>
+<script type="text/babel" src="components/FitCheck.jsx"></script>
+<script type="text/babel" src="components/Process.jsx"></script>
+<script type="text/babel" src="components/Pricing.jsx"></script>
+<script type="text/babel" src="components/Cases.jsx"></script>
+<script type="text/babel" src="components/About.jsx"></script>
+<script type="text/babel" src="components/ForWhom.jsx"></script>
+<script type="text/babel" src="components/FAQ.jsx"></script>
+<script type="text/babel" src="components/Contact.jsx"></script>
+<script type="text/babel" src="components/Footer.jsx"></script>
+<script type="text/babel" src="components/CTAStrip.jsx"></script>
+<script type="text/babel" src="components/StickyCTA.jsx"></script>
+<script type="text/babel" src="app.jsx"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+# build output
+dist/
+# generated types
+.astro/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# environment variables
+.env
+.env.*
+!.env.example
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# jetbrains setting folder
+.idea/
+
+# editor swap/backup files
+*.swp
+*.swo
+*~
+
+# src/web = reference export from Claude design (source of 1:1 content/look
+# during migration, not part of the Astro build). Keep the actual component
+# sources for reference, skip the bundler-generated, non-source artifacts.
+src/web/.thumbnail
+src/web/*Standalone.html

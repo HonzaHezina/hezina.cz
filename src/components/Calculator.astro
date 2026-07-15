@@ -1,0 +1,158 @@
+---
+---
+
+<section class="section section--soft" id="kalkulacka">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Kalkulačka</span>
+      <h2>Kolik vám AI<br />reálně ušetří?</h2>
+      <p>
+        Nastavte vlastní firmu. Spočítáme, kolik hodin a peněz vám AI asistent vrátí za týden, měsíc i rok. Bez
+        registrace, jen pohnete posuvníky.
+      </p>
+    </div>
+
+    <div class="calc">
+      <div class="calc__inputs">
+        <div class="calc-slider">
+          <div class="calc-slider__top">
+            <label for="calc-email">Hodin týdně na emailech</label>
+            <span class="calc-slider__value" id="calc-email-value">8 <span>h</span></span>
+          </div>
+          <input type="range" id="calc-email" min="1" max="25" step="1" value="8" />
+          <div class="calc-slider__hint">Kolik hodin průměrný člověk u vás stráví v inboxu?</div>
+        </div>
+
+        <div class="calc-slider">
+          <div class="calc-slider__top">
+            <label for="calc-doc">Hodin týdně v dokumentech</label>
+            <span class="calc-slider__value" id="calc-doc-value">5 <span>h</span></span>
+          </div>
+          <input type="range" id="calc-doc" min="0" max="20" step="1" value="5" />
+          <div class="calc-slider__hint">Hledání ve smlouvách, fakturách, nabídkách.</div>
+        </div>
+
+        <div class="calc-slider">
+          <div class="calc-slider__top">
+            <label for="calc-people">Kolik lidí u vás má tuhle rutinu</label>
+            <span class="calc-slider__value" id="calc-people-value">8 <span></span></span>
+          </div>
+          <input type="range" id="calc-people" min="1" max="50" step="1" value="8" />
+          <div class="calc-slider__hint">Kdo opakovaně řeší podobné úkoly.</div>
+        </div>
+
+        <div class="calc-slider">
+          <div class="calc-slider__top">
+            <label for="calc-rate">Hodinová sazba (Kč)</label>
+            <span class="calc-slider__value" id="calc-rate-value">800 <span>Kč</span></span>
+          </div>
+          <input type="range" id="calc-rate" min="300" max="2500" step="50" value="800" />
+          <div class="calc-slider__hint">Hrubá cena hodiny zaměstnance vč. odvodů.</div>
+        </div>
+      </div>
+
+      <div class="calc__output">
+        <div class="calc__big">
+          <div class="calc__big-label">AI vám vrátí ročně</div>
+          <div class="calc__big-num">
+            <span id="calc-year-hours">0</span>
+            <span class="calc__big-unit">hodin</span>
+          </div>
+          <div class="calc__big-sub">≈ <span id="calc-year-money">0</span> Kč úspory za rok</div>
+        </div>
+
+        <div class="calc__rows">
+          <div class="calc__row">
+            <span>Týdně</span>
+            <strong><span id="calc-week-hours">0</span> h</strong>
+          </div>
+          <div class="calc__row">
+            <span>Měsíčně</span>
+            <strong><span id="calc-month-hours">0</span> h · <span id="calc-month-money">0</span> Kč</strong>
+          </div>
+          <div class="calc__row calc__row--accent">
+            <span>Měsíční paušál se zaplatí za</span>
+            <strong><span id="calc-roi">0</span></strong>
+          </div>
+        </div>
+
+        <a href="#kontakt" class="btn btn--blue btn--lg" style="width: 100%">
+          Domluvit hovor o vašem případu
+          <span class="arrow">→</span>
+        </a>
+        <p class="calc__disclaimer">
+          Výpočet je orientační. AI obvykle ušetří 40–60 % času na rutinních úkolech. Skutečnou úsporu spočítáme na
+          20min hovoru z vašich konkrétních procesů.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const emailInput = document.getElementById('calc-email') as HTMLInputElement;
+  const docInput = document.getElementById('calc-doc') as HTMLInputElement;
+  const peopleInput = document.getElementById('calc-people') as HTMLInputElement;
+  const rateInput = document.getElementById('calc-rate') as HTMLInputElement;
+
+  const emailValue = document.getElementById('calc-email-value') as HTMLElement;
+  const docValue = document.getElementById('calc-doc-value') as HTMLElement;
+  const peopleValue = document.getElementById('calc-people-value') as HTMLElement;
+  const rateValue = document.getElementById('calc-rate-value') as HTMLElement;
+
+  const yearHours = document.getElementById('calc-year-hours') as HTMLElement;
+  const yearMoney = document.getElementById('calc-year-money') as HTMLElement;
+  const weekHours = document.getElementById('calc-week-hours') as HTMLElement;
+  const monthHours = document.getElementById('calc-month-hours') as HTMLElement;
+  const monthMoney = document.getElementById('calc-month-money') as HTMLElement;
+  const roi = document.getElementById('calc-roi') as HTMLElement;
+
+  const fmt = (n: number) => new Intl.NumberFormat('cs-CZ').format(Math.round(n));
+  function pluralWeeks(n: number) {
+    if (n < 1.5) return 'týden';
+    if (n < 5) return 'týdny';
+    return 'týdnů';
+  }
+
+  function setSliderPct(input: HTMLInputElement) {
+    const min = Number(input.min);
+    const max = Number(input.max);
+    const pct = ((Number(input.value) - min) / (max - min)) * 100;
+    input.style.setProperty('--pct', pct + '%');
+  }
+
+  function recompute() {
+    const emailHours = Number(emailInput.value);
+    const docHours = Number(docInput.value);
+    const people = Number(peopleInput.value);
+    const hourlyRate = Number(rateInput.value);
+
+    emailValue.innerHTML = `${fmt(emailHours)} <span>h</span>`;
+    docValue.innerHTML = `${fmt(docHours)} <span>h</span>`;
+    peopleValue.innerHTML = `${fmt(people)} <span></span>`;
+    rateValue.innerHTML = `${fmt(hourlyRate)} <span>Kč</span>`;
+
+    const savedPerWeek = emailHours * 0.6 * people + docHours * 0.4 * people;
+    const savedPerMonth = savedPerWeek * 4.33;
+    const savedPerYear = savedPerWeek * 52;
+    const moneyPerMonth = Math.round(savedPerMonth * hourlyRate);
+    const moneyPerYear = Math.round(savedPerYear * hourlyRate);
+    const roiWeeksRaw = (15000 / (savedPerWeek * hourlyRate)) * 10;
+    const roiWeeks = isFinite(roiWeeksRaw) ? Math.round(roiWeeksRaw) / 10 : 0;
+
+    yearHours.textContent = fmt(savedPerYear);
+    yearMoney.textContent = fmt(moneyPerYear);
+    weekHours.textContent = fmt(savedPerWeek);
+    monthHours.textContent = fmt(savedPerMonth);
+    monthMoney.textContent = fmt(moneyPerMonth);
+    roi.textContent = `${roiWeeks} ${pluralWeeks(roiWeeks)}`;
+
+    [emailInput, docInput, peopleInput, rateInput].forEach(setSliderPct);
+  }
+
+  [emailInput, docInput, peopleInput, rateInput].forEach((input) => {
+    input.addEventListener('input', recompute);
+  });
+
+  recompute();
+</script>

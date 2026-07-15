@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  sub?: string;
+  btn?: string;
+  href?: string;
+  variant?: 'light' | 'dark';
+}
+
+const { title, sub, btn = 'Domluvit hovor (20 min)', href = '#kontakt', variant = 'light' } = Astro.props;
+---
+
+<section class={`cta-strip cta-strip--${variant}`}>
+  <div class="container">
+    <div class="cta-strip__inner">
+      <div>
+        <h3 class="cta-strip__title">{title}</h3>
+        {sub && <p class="cta-strip__sub">{sub}</p>}
+      </div>
+      <a href={href} class="btn btn--blue btn--lg cta-strip__btn">
+        {btn}
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,212 @@
+---
+const QUESTIONS = [
+  {
+    q: 'Kolik lidí máte ve firmě?',
+    options: [
+      { label: '1–4', score: { audit: 2, training: 3, implement: 0, wait: 1 } },
+      { label: '5–15', score: { audit: 2, training: 2, implement: 3, wait: 0 } },
+      { label: '16–50', score: { audit: 1, training: 2, implement: 4, wait: 0 } },
+      { label: '50+', score: { audit: 2, training: 1, implement: 4, wait: 0 } },
+    ],
+  },
+  {
+    q: 'Trávíte hodně času rutinou (emaily, dokumenty, faktury)?',
+    options: [
+      { label: 'Ano, denně několik hodin', score: { audit: 1, training: 1, implement: 5, wait: 0 } },
+      { label: 'Tu a tam', score: { audit: 3, training: 2, implement: 1, wait: 0 } },
+      { label: 'Spíš ne', score: { audit: 1, training: 1, implement: 0, wait: 3 } },
+    ],
+  },
+  {
+    q: 'Máte základní pořádek v datech (emaily, složky, systémy)?',
+    options: [
+      { label: 'Ano, máme to docela srovnané', score: { audit: 1, training: 1, implement: 4, wait: 0 } },
+      { label: 'Tak napůl', score: { audit: 3, training: 2, implement: 2, wait: 0 } },
+      { label: 'Chaos', score: { audit: 4, training: 1, implement: 0, wait: 1 } },
+    ],
+  },
+  {
+    q: 'Co od AI primárně chcete?',
+    options: [
+      { label: 'Ušetřit konkrétní hodiny týdně', score: { audit: 1, training: 1, implement: 5, wait: 0 } },
+      { label: 'Naučit tým AI používat', score: { audit: 1, training: 5, implement: 1, wait: 0 } },
+      { label: 'Zjistit, co je vůbec možné', score: { audit: 5, training: 2, implement: 0, wait: 0 } },
+      { label: 'Zatím nevím', score: { audit: 4, training: 2, implement: 0, wait: 1 } },
+    ],
+  },
+  {
+    q: 'Kdy chcete začít vidět výsledky?',
+    options: [
+      { label: 'Hned, je to bolavé', score: { audit: 0, training: 1, implement: 5, wait: 0 } },
+      { label: 'Do měsíce', score: { audit: 2, training: 3, implement: 3, wait: 0 } },
+      { label: 'Spíš si zjišťuji', score: { audit: 4, training: 2, implement: 1, wait: 1 } },
+      { label: 'Nemáme spěch', score: { audit: 3, training: 2, implement: 1, wait: 2 } },
+    ],
+  },
+];
+
+const VERDICTS: Record<string, { title: string; body: string; cta: string; href: string; accent: string }> = {
+  implement: {
+    title: 'Jste připraveni na implementaci.',
+    body: 'Vaše firma má jasnou rutinu, data v pořádku a víte, co chcete. Doporučuji rovnou plnou implementaci AI asistenta. Návratnost typicky za 4–8 týdnů.',
+    cta: 'Domluvit hovor o implementaci',
+    href: '#kontakt',
+    accent: 'oklch(0.48 0.14 252)',
+  },
+  audit: {
+    title: 'Začněte auditem.',
+    body: 'Než investujete do implementace, vyplatí se zmapovat procesy a najít, kde AI dává smysl. Audit za 20 000 Kč vám dá konkrétní plán — i kdybyste pokračovali bez mě.',
+    cta: 'Mám zájem o audit',
+    href: '#sluzby',
+    accent: 'oklch(0.55 0.16 230)',
+  },
+  training: {
+    title: 'Začněte školením.',
+    body: 'Než nasazovat systém, dává smysl, aby tým uměl AI používat denně (ChatGPT, Claude). Půldenní workshop za 15 000 Kč — pak se uvidí, jestli implementace dává smysl.',
+    cta: 'Domluvit školení',
+    href: '#sluzby',
+    accent: 'oklch(0.52 0.16 145)',
+  },
+  wait: {
+    title: 'Možná na to ještě počkejte.',
+    body: 'Z odpovědí to vypadá, že AI investice u vás teď nedá smysl. Raději vám to řeknu rovnou, než abychom si oba brali čas. Sledujte to za půl roku — ozvěte se, až bude bolet.',
+    cta: 'Stejně se chci ozvat',
+    href: '#kontakt',
+    accent: 'oklch(0.52 0.06 50)',
+  },
+};
+---
+
+<section class="section section--soft" id="diagnostika">
+  <div class="container">
+    <div class="section-head" style="text-align: center; margin-left: auto; margin-right: auto">
+      <span class="eyebrow" style="justify-content: center"><span class="dot"></span>Diagnostika · 60 vteřin</span>
+      <h2 style="text-align: center">
+        Je AI pro vaši firmu?<br /><span class="serif">Zjistěte si to.</span>
+      </h2>
+      <p style="margin-left: auto; margin-right: auto">
+        5 otázek, žádný email, žádná registrace. Na konci dostanete konkrétní doporučení, jestli začít implementací,
+        školením, auditem — nebo počkat.
+      </p>
+    </div>
+
+    <div class="fc">
+      <div id="fc-quiz">
+        <div class="fc__progress">
+          <div class="fc__progress-bar" id="fc-progress-bar" style="width: 0%"></div>
+          <div class="fc__progress-label mono" id="fc-progress-label">Otázka 1 z {QUESTIONS.length}</div>
+        </div>
+
+        <div class="fc__question" id="fc-question">
+          <h3 class="fc__q" id="fc-q-text">{QUESTIONS[0].q}</h3>
+          <div class="fc__options" id="fc-options">
+            {
+              QUESTIONS[0].options.map((o, i) => (
+                <button type="button" class="fc__option" data-idx={i}>
+                  <span class="fc__option-key mono">{String.fromCharCode(65 + i)}</span>
+                  <span class="fc__option-label">{o.label}</span>
+                  <span class="fc__option-arrow">→</span>
+                </button>
+              ))
+            }
+          </div>
+          <button type="button" class="fc__back" id="fc-back" style="display: none">← Zpět</button>
+        </div>
+      </div>
+
+      <div class="fc__verdict" id="fc-verdict" style="display: none">
+        <div class="fc__verdict-tag mono">Doporučení pro vás</div>
+        <h3 class="fc__verdict-title" id="fc-verdict-title"></h3>
+        <p class="fc__verdict-body" id="fc-verdict-body"></p>
+        <div class="fc__verdict-actions">
+          <a href="#kontakt" class="btn btn--blue btn--lg" id="fc-verdict-cta"></a>
+          <button type="button" class="btn btn--ghost" id="fc-reset">Spustit znovu</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script define:vars={{ QUESTIONS, VERDICTS }}>
+  let step = 0;
+  let answers = [];
+
+  const quizEl = document.getElementById('fc-quiz');
+  const verdictEl = document.getElementById('fc-verdict');
+  const progressBar = document.getElementById('fc-progress-bar');
+  const progressLabel = document.getElementById('fc-progress-label');
+  const qText = document.getElementById('fc-q-text');
+  const optionsEl = document.getElementById('fc-options');
+  const backBtn = document.getElementById('fc-back');
+  const verdictTitle = document.getElementById('fc-verdict-title');
+  const verdictBody = document.getElementById('fc-verdict-body');
+  const verdictCta = document.getElementById('fc-verdict-cta');
+  const resetBtn = document.getElementById('fc-reset');
+
+  function renderQuestion() {
+    const current = QUESTIONS[step];
+    progressBar.style.width = (step / QUESTIONS.length) * 100 + '%';
+    progressLabel.textContent = `Otázka ${step + 1} z ${QUESTIONS.length}`;
+    qText.textContent = current.q;
+    optionsEl.innerHTML = current.options
+      .map(
+        (o, i) => `
+      <button type="button" class="fc__option" data-idx="${i}">
+        <span class="fc__option-key mono">${String.fromCharCode(65 + i)}</span>
+        <span class="fc__option-label">${o.label}</span>
+        <span class="fc__option-arrow">→</span>
+      </button>`
+      )
+      .join('');
+    backBtn.style.display = step > 0 ? '' : 'none';
+  }
+
+  function getVerdict() {
+    const totals = { audit: 0, training: 0, implement: 0, wait: 0 };
+    answers.forEach((aIdx, qIdx) => {
+      const s = QUESTIONS[qIdx].options[aIdx].score;
+      Object.keys(s).forEach((k) => {
+        totals[k] += s[k];
+      });
+    });
+    const winner = Object.keys(totals).reduce((a, b) => (totals[a] >= totals[b] ? a : b));
+    return winner;
+  }
+
+  function showVerdict() {
+    const v = VERDICTS[getVerdict()];
+    quizEl.style.display = 'none';
+    verdictEl.style.display = '';
+    verdictEl.style.setProperty('--accent', v.accent);
+    verdictTitle.textContent = v.title;
+    verdictBody.textContent = v.body;
+    verdictCta.textContent = v.cta;
+    verdictCta.href = v.href;
+  }
+
+  optionsEl.addEventListener('click', (e) => {
+    const btn = e.target.closest('button[data-idx]');
+    if (!btn) return;
+    answers.push(Number(btn.dataset.idx));
+    if (step + 1 < QUESTIONS.length) {
+      step += 1;
+      renderQuestion();
+    } else {
+      showVerdict();
+    }
+  });
+
+  backBtn.addEventListener('click', () => {
+    step -= 1;
+    answers = answers.slice(0, -1);
+    renderQuestion();
+  });
+
+  resetBtn.addEventListener('click', () => {
+    step = 0;
+    answers = [];
+    quizEl.style.display = '';
+    verdictEl.style.display = 'none';
+    renderQuestion();
+  });
+</script>

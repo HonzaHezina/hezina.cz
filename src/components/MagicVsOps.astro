@@ -1,0 +1,71 @@
+---
+const demo = ['Méně klikání', 'Rychlý výsledek', 'Kouzelný pocit', 'Pěkné demo'];
+const ops = ['Vidíte, co AI dělá', 'Vy schvalujete, ne AI', 'Můžete to kdykoli zkontrolovat', 'Když je problém, víte proč'];
+---
+
+<section class="section section--soft" id="magie">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Manifest</span>
+      <h2>Magie je skvělá.<br /><span class="serif">Do první chyby.</span></h2>
+      <p>
+        Většina AI nástrojů prodává kouzlo. Funguje to do prvního selhání — pak nikdo neví, co se stalo, kdo za to
+        může, a jak to opravit. Já stavím systém, ne kouzlo.
+      </p>
+    </div>
+
+    <div class="mvo">
+      <div class="mvo__col mvo__col--demo">
+        <div class="mvo__head">
+          <span class="mvo__tag">V demu vítězí</span>
+          <h3>Kouzlo</h3>
+        </div>
+        <ul>
+          {demo.map((x) => <li>{x}</li>)}
+        </ul>
+        <p class="mvo__note">Funguje, dokud nespadne. Pak začne hledání viníka.</p>
+      </div>
+
+      <div class="mvo__divider"><span class="serif">vs.</span></div>
+
+      <div class="mvo__col mvo__col--ops">
+        <div class="mvo__head">
+          <span class="mvo__tag">V provozu vítězí</span>
+          <h3>Systém</h3>
+        </div>
+        <ul>
+          {ops.map((x) => <li>{x}</li>)}
+        </ul>
+        <p class="mvo__note">U každé akce vidíte, kdo ji spustil, kdo schválil a co se stalo.</p>
+      </div>
+    </div>
+
+    <div class="flow-log" aria-hidden="true">
+      <div class="flow-log__head">
+        <span>Příklad jedné akce</span>
+        <span class="flow-log__ok"><span class="dot-pulse"></span> Hotovo</span>
+      </div>
+      <div class="flow-log__steps">
+        <div class="flow-log__step">
+          <span class="flow-log__time">14:02</span>
+          <span class="flow-log__what">Přišel email od klienta</span>
+        </div>
+        <div class="flow-log__arrow">→</div>
+        <div class="flow-log__step">
+          <span class="flow-log__time">14:02</span>
+          <span class="flow-log__what">AI připravila odpověď</span>
+        </div>
+        <div class="flow-log__arrow">→</div>
+        <div class="flow-log__step flow-log__step--human">
+          <span class="flow-log__time">14:02</span>
+          <span class="flow-log__what">Vy jste schválili</span>
+        </div>
+        <div class="flow-log__arrow">→</div>
+        <div class="flow-log__step flow-log__step--done">
+          <span class="flow-log__time">14:02</span>
+          <span class="flow-log__what">Odesláno klientovi</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
