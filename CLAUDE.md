@@ -95,9 +95,10 @@ src/
 
 `src/web/` obsahuje **referenční export starého SPA designu** (od Claude) —
 zdroj pravdy pro 1:1 obsah a vzhled při migraci, není součástí buildu.
-Kořenové `app.jsx`, `components/*.jsx`, `styles.css`, `index.html`,
-`tweaks-panel.jsx` jsou **starý produkční SPA kód** — zůstávají do doby, než
-Fáze 6 potvrdí zelenou verifikaci nového statického webu, pak se odstraní.
+
+Starý produkční SPA kód (kořenové `app.jsx`, `components/*.jsx`, `styles.css`,
+`index.html`, `tweaks-panel.jsx`) byl po zelené verifikaci (Fáze 6) odstraněn —
+nový Astro web je jediný zdroj pravdy.
 
 ## Vývoj
 
@@ -122,11 +123,29 @@ ne jen scripty. Bez zeleného gripu není migrace hotová.
 
 ## Nasazení
 
-Coolify na Hetzneru, stejný vzor jako sesterský projekt BeHeMi-web:
+Coolify na Hetzneru, stejný vzor jako sesterský projekt BeHeMi-web. Web už má
+v Coolify existující resource (doména + SSL) z dob starého SPA — **nezakládej
+nový kontejner**, jen uprav build nastavení stávajícího resource a spusť
+redeploy. Nová doména/certifikát by se řešily zbytečně znovu.
 
-- **Build Pack:** Nixpacks · **Is it a static site? = ON** · **Is it a SPA? = OFF**
-- **Publish Directory:** `/dist` · **Build Command:** `npm run build`
-- **Static Image:** `nginx:alpine` + default Coolify nginx config
-- Pre-deployment commands prázdné. Port 3000 irelevantní po zapnutí static togglu.
+V Coolify UI u resource hezina.cz nastav/zkontroluj:
 
-(Přesný postup doplníme ve Fázi 7, až proběhne první reálný deploy.)
+- **Build Pack:** Nixpacks
+- **Is it a static site?** = **ON**
+- **Is it a SPA?** = **OFF** (i když je to jedna stránka, tenhle přepínač
+  řídí SPA-style fallback routing na `index.html` — u nás ho nechceme)
+- **Install Command:** `npm install`
+- **Build Command:** `npm run build`
+- **Publish Directory:** `/dist` (s lomítkem)
+- **Static Image:** `nginx:alpine` (default Coolify nginx config —
+  `try_files $uri $uri.html $uri/index.html …`, sedí na Astro output)
+- **Pre-deployment commands:** prázdné
+- Port 3000 je po zapnutí static togglu irelevantní
+
+Po uložení nastavení klikni **Redeploy**. Coolify strhne aktuální `main`,
+spustí `npm install && npm run build` a nasadí obsah `dist/` přes nginx.
+
+**Pokud static toggle není zapnutý** (např. starý resource byl nastavený jako
+Node server), Coolify by zkoušel spustit `npm start`, který v tomhle projektu
+neexistuje → restart smyčka. Zapnutí static togglu je proto nutná podmínka,
+ne volitelná optimalizace.
