@@ -1,4 +1,29 @@
 ---
+const DEFAULTS = { emailHours: 8, docHours: 5, people: 8, hourlyRate: 800 };
+
+const fmt = (n: number) => new Intl.NumberFormat('cs-CZ').format(Math.round(n));
+function pluralWeeks(n: number) {
+  if (n < 1.5) return 'týden';
+  if (n < 5) return 'týdny';
+  return 'týdnů';
+}
+
+const savedPerWeek = DEFAULTS.emailHours * 0.6 * DEFAULTS.people + DEFAULTS.docHours * 0.4 * DEFAULTS.people;
+const savedPerMonth = savedPerWeek * 4.33;
+const savedPerYear = savedPerWeek * 52;
+const moneyPerMonth = Math.round(savedPerMonth * DEFAULTS.hourlyRate);
+const moneyPerYear = Math.round(savedPerYear * DEFAULTS.hourlyRate);
+const roiWeeksRaw = (15000 / (savedPerWeek * DEFAULTS.hourlyRate)) * 10;
+const roiWeeks = isFinite(roiWeeksRaw) ? Math.round(roiWeeksRaw) / 10 : 0;
+
+const initial = {
+  yearHours: fmt(savedPerYear),
+  yearMoney: fmt(moneyPerYear),
+  weekHours: fmt(savedPerWeek),
+  monthHours: fmt(savedPerMonth),
+  monthMoney: fmt(moneyPerMonth),
+  roi: `${roiWeeks} ${pluralWeeks(roiWeeks)}`,
+};
 ---
 
 <section class="section section--soft" id="kalkulacka">
@@ -55,24 +80,28 @@
         <div class="calc__big">
           <div class="calc__big-label">AI vám vrátí ročně</div>
           <div class="calc__big-num">
-            <span id="calc-year-hours">0</span>
+            <span id="calc-year-hours">{initial.yearHours}</span>
             <span class="calc__big-unit">hodin</span>
           </div>
-          <div class="calc__big-sub">≈ <span id="calc-year-money">0</span> Kč úspory za rok</div>
+          <div class="calc__big-sub">≈ <span id="calc-year-money">{initial.yearMoney}</span> Kč úspory za rok</div>
         </div>
 
         <div class="calc__rows">
           <div class="calc__row">
             <span>Týdně</span>
-            <strong><span id="calc-week-hours">0</span> h</strong>
+            <strong><span id="calc-week-hours">{initial.weekHours}</span> h</strong>
           </div>
           <div class="calc__row">
             <span>Měsíčně</span>
-            <strong><span id="calc-month-hours">0</span> h · <span id="calc-month-money">0</span> Kč</strong>
+            <strong
+              ><span id="calc-month-hours">{initial.monthHours}</span> h · <span id="calc-month-money"
+                >{initial.monthMoney}</span
+              > Kč</strong
+            >
           </div>
           <div class="calc__row calc__row--accent">
             <span>Měsíční paušál se zaplatí za</span>
-            <strong><span id="calc-roi">0</span></strong>
+            <strong><span id="calc-roi">{initial.roi}</span></strong>
           </div>
         </div>
 
