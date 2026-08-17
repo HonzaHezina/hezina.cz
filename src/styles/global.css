@@ -1728,6 +1728,12 @@ p { margin: 0; text-wrap: pretty; }
   color: var(--ink);
   font-weight: 500;
 }
+.breaks__close {
+  margin-top: 28px;
+  text-align: center;
+  font-size: 15.5px;
+  color: var(--ink-soft);
+}
 
 /* ============================================================
    FAQ

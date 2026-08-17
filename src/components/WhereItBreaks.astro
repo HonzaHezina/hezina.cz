@@ -1,26 +1,30 @@
 ---
-// TODO: nahradit BREAKS reálnými, anonymizovanými rozbory od klienta. Nefabrikovat.
-// Pro každou položku potřebuju: obor + velikost firmy, co si firma myslela, že je
-// problém, co byl problém ve skutečnosti, co se udělalo místo toho, a jednou větou proč
-// to "obvyklé" řešení nefungovalo. 2–3 položky stačí.
-const BREAKS = [
+// Tři vzorce, které se v diagnostikách opakují nejčastěji — obecné, ne vázané
+// na konkrétního klienta. Případná reálná anonymizovaná ukázka (obor, velikost
+// firmy, co se skutečně stalo) čeká na dodání od Honzy — TODO níže, nefabrikovat.
+const PATTERNS = [
   {
-    industry: 'TODO: obor firmy',
-    size: 'TODO: velikost (počet lidí)',
-    assumed: 'TODO: co si firma myslela, že je problém',
-    actual: 'TODO: co byl problém ve skutečnosti',
-    didInstead: 'TODO: co se udělalo místo toho',
-    whyNot: 'TODO: proč obvyklé řešení nefungovalo (jedna věta)',
+    label: '01 · Nástroj místo návyku',
+    assumed: 'Firma chce nový nástroj — ten starý prý nefunguje.',
+    actual: 'Nikdo starý systém pořádně nenaučil používat a data v něm nesedí.',
+    whyNot: 'Nový nástroj problém nevyřeší, jen ho zdvojí.',
   },
   {
-    industry: 'TODO: obor firmy',
-    size: 'TODO: velikost (počet lidí)',
-    assumed: 'TODO: co si firma myslela, že je problém',
-    actual: 'TODO: co byl problém ve skutečnosti',
-    didInstead: 'TODO: co se udělalo místo toho',
-    whyNot: 'TODO: proč obvyklé řešení nefungovalo (jedna věta)',
+    label: '02 · Obcházené workflow',
+    assumed: 'Firma chce tohle workflow zautomatizovat.',
+    actual: 'Lidé ho obcházejí, protože v reálném provozu nedává smysl.',
+    whyNot: 'Automatizace obcházení jen zabetonuje.',
+  },
+  {
+    label: '03 · Nedůvěryhodná data',
+    assumed: 'Firma chce nasadit AI nad svými daty.',
+    actual: 'Datům nevěří ani lidé, kteří s nimi denně pracují.',
+    whyNot: 'AI z nedůvěryhodných dat vyrobí jen rychlejší nesmysly.',
   },
 ];
+// TODO: až Honza dodá reálný anonymizovaný případ (obor + velikost firmy, co se
+// skutečně stalo, proč obvyklé řešení nezabralo), přidat jako čtvrtou kartu nebo
+// samostatný blok pod PATTERNS. Nevymýšlet přiklad předem.
 ---
 
 <section class="section section--soft" id="kde-se-lame">
@@ -29,38 +33,36 @@ const BREAKS = [
       <span class="eyebrow"><span class="dot"></span>Kde se to obvykle láme</span>
       <h2>Než začnu stavět,<br />hledám skutečný problém.</h2>
       <p>
-        Tohle nejsou reference — jsou to anonymizované rozbory z diagnostik. Co firma čekala, co se ve skutečnosti
-        ukázalo, a proč obvyklé řešení nefungovalo.
+        Vím, jak vypadá systém, který nikdo nepoužívá správně, workflow, které všichni obcházejí, a data, kterým
+        nikdo nevěří. Tohle jsou tři vzorce, které se opakují nejčastěji.
       </p>
     </div>
 
     <div class="breaks">
       {
-        BREAKS.map((b) => (
+        PATTERNS.map((p) => (
           <div class="breaks__card">
-            <div class="breaks__industry">
-              {b.industry} · {b.size}
-            </div>
+            <div class="breaks__industry">{p.label}</div>
 
             <div class="breaks__field">
-              <span class="breaks__label">Co firma čekala</span>
-              <p>{b.assumed}</p>
+              <span class="breaks__label">Co si firma myslí, že je problém</span>
+              <p>{p.assumed}</p>
             </div>
             <div class="breaks__field">
-              <span class="breaks__label">Co byl problém ve skutečnosti</span>
-              <p>{b.actual}</p>
-            </div>
-            <div class="breaks__field">
-              <span class="breaks__label">Co se udělalo místo toho</span>
-              <p>{b.didInstead}</p>
+              <span class="breaks__label">Co je problém doopravdy</span>
+              <p>{p.actual}</p>
             </div>
             <div class="breaks__field breaks__field--why">
-              <span class="breaks__label">Proč obvyklé řešení nefungovalo</span>
-              <p>{b.whyNot}</p>
+              <span class="breaks__label">Proč to obvyklé řešení nespraví</span>
+              <p>{p.whyNot}</p>
             </div>
           </div>
         ))
       }
     </div>
+
+    <p class="breaks__close">
+      Někdy je řešení AI. Někdy změna procesu. Někdy stačí přestat dělat blbost, kterou děláte pět let ze zvyku.
+    </p>
   </div>
 </section>

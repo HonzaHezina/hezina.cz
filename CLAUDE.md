@@ -84,10 +84,12 @@ trafficu — je to legitimizace ("není to amatér"), ne lead-gen trychtýř.
    struktura sekcí smí měnit, ale vždy jen na základě explicitního zadání od
    Honzy a schváleného plánu (research → plán → schválení → implementace po
    sekcích/commitech). Nevymýšlet nový copy ani sekce iniciativně bez zadání.
-   Nová sekce s reálnými případovkami (`WhereItBreaks.astro`) čeká na obsah
-   od Honzy a záměrně **není** zapojená do `index.astro` — fabrikovaný obsah
-   (vymyšlené případovky, citace) nesmí jít na produkci, viz i `Cases.astro`,
-   odkud byly z téhož důvodu odstraněny vymyšlené citace klientů.
+   `WhereItBreaks.astro` ("Kde se to obvykle láme", kolo 2) je zapojená do
+   `index.astro` s obecnými vzorci ze zadání (ne s vymyšlenými případovkami) —
+   konkrétní anonymizovaný příklad čeká na dodání od Honzy, viz `TODO` v
+   komponentě. Fabrikovaný obsah (vymyšlené případovky, citace) nesmí jít na
+   produkci, viz i `Cases.astro`, odkud byly z téhož důvodu odstraněny
+   vymyšlené citace klientů.
 5. **Jazyk webu je čeština:** `<html lang="cs">`, veškerý copy česky.
 6. **Kontaktní formulář** posílá `POST` na `https://n8n.janagi.org/webhook/contact`
    (FormData) přímo z prohlížeče — žádný server endpoint, žádný skrytý klíč.
@@ -109,7 +111,7 @@ src/
 │   ├── Hero.astro               # copy + <script> pro JarvisDemo; H1 = diagnostika, ne Jarvis
 │   ├── NoBS.astro
 │   ├── Services.astro           # + <script> pro taby; pořadí = Diagnostika → Implementace → Školení
-│   ├── WhereItBreaks.astro      # "Kde se to obvykle láme" — TODO obsah, NEIMPORTOVANÁ do index.astro
+│   ├── WhereItBreaks.astro      # "Kde se to obvykle láme"; mezi MagicVsOps a About
 │   ├── Process.astro            # 3 kroky podél jednotné časové osy (diagnostika → implementace → provoz)
 │   ├── CTAStrip.astro           # props: title, sub, btn, href, variant
 │   ├── DayWith.astro            # + <script> pro klikací timeline; žije až za Services/Process
