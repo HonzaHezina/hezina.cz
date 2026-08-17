@@ -10,8 +10,6 @@ const CASES = [
       { v: '6 h', l: 'týdně zpět / člověk' },
       { v: '0', l: 'vynechaných odpovědí' },
     ],
-    quote: 'Předtím to byly hodiny denně. Teď schválím deset emailů u kafe.',
-    role: 'majitel firmy',
   },
   {
     industry: 'Účetní kancelář',
@@ -23,8 +21,6 @@ const CASES = [
       { v: '3 s', l: 'odpověď na dotaz' },
       { v: '100 %', l: 'dohledatelnost' },
     ],
-    quote: 'Když mi volá klient, mám odpověď dřív, než dokončí otázku.',
-    role: 'jednatelka',
   },
   {
     industry: 'Stavební firma',
@@ -36,8 +32,6 @@ const CASES = [
       { v: '~25 %', l: 'rychlejší fakturace' },
       { v: '8', l: 'projektů pod kontrolou' },
     ],
-    quote: 'Konečně vím, co mi zítra spadne na hlavu, než to spadne.',
-    role: 'stavbyvedoucí',
   },
 ];
 ---
@@ -48,8 +42,8 @@ const CASES = [
       <span class="eyebrow"><span class="dot"></span>Modelové scénáře</span>
       <h2>Takhle to<br />typicky vypadá.</h2>
       <p>
-        Ilustrativní scénáře podle typických zadání — velikost firmy a obor sedí, čísla odpovídají reálným
-        úsporám, jaké AI asistent v podobném nastavení přináší.
+        Modelové scénáře podle typických zadání — velikost firmy a obor sedí, čísla jsou modelová, ne měřená u
+        konkrétního klienta.
       </p>
     </div>
 
@@ -91,11 +85,6 @@ const CASES = [
                 </div>
               ))}
             </div>
-
-            <blockquote class="cases__quote">
-              <p>{c.quote}</p>
-              <cite>— {c.role}</cite>
-            </blockquote>
           </div>
         ))
       }
