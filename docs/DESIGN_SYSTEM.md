@@ -12,9 +12,12 @@
 
 ## Esence značky
 
-Jan Hezina — AI asistent pro malé a střední firmy ("váš vlastní Jarvis").
-Věcné, no-nonsense, důvěryhodné. Konkrétní čísla a příklady místo buzzwordů
-("transformace", "disrupce", "synergie" — viz sekce `NoBS`). Systém, ne kouzlo.
+Jan Hezina — diagnostika a AI pro malé a střední firmy. Hlavní kompetence je
+umět přečíst systém a najít, kde se to reálně láme; "Jarvis" je až popis
+toho, co se staví *poté*, co diagnostika potvrdí, že to dává smysl (viz
+pozicování v `/CLAUDE.md`). Věcné, no-nonsense, důvěryhodné. Konkrétní čísla
+a příklady místo buzzwordů ("transformace", "disrupce", "synergie" — viz
+sekce `NoBS`). Systém, ne kouzlo.
 
 ## Barvy (tokeny)
 
