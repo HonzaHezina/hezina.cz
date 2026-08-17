@@ -2,7 +2,7 @@
 const links: [string, string][] = [
   ['#sluzby', 'Co nabízím'],
   ['#den', 'Jak to vypadá'],
-  ['#diagnostika', 'Je to pro vás?'],
+  ['#rychly-test', 'Je to pro vás?'],
   ['#cena', 'Cena'],
   ['#kontakt', 'Kontakt'],
 ];
@@ -59,7 +59,7 @@ const links: [string, string][] = [
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
         </svg>
       </button>
-      <a href="#kontakt" class="btn btn--ghost btn--sm">Domluvit hovor</a>
+      <a href="#kontakt" class="btn btn--ghost btn--sm">Objednat diagnostiku</a>
       <button class="nav__burger" id="nav-burger" aria-label="Otevřít menu" aria-expanded="false">
         <span></span>
       </button>
@@ -69,7 +69,7 @@ const links: [string, string][] = [
 
 <div class="mobile-menu" id="mobile-menu">
   {links.map(([h, l]) => <a href={h}>{l}</a>)}
-  <a href="#kontakt" style="color: var(--blue-deep); font-weight: 600">Domluvit hovor →</a>
+  <a href="#kontakt" style="color: var(--blue-deep); font-weight: 600">Objednat diagnostiku →</a>
 </div>
 
 <script>
