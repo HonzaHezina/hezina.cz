@@ -1,20 +1,22 @@
 ---
-const DEFAULTS = { emailHours: 8, docHours: 5, people: 8, hourlyRate: 800 };
+const DEFAULTS = { emailHours: 8, docHours: 5, people: 5, hourlyRate: 800 };
+const FIRST_YEAR_COST = 50000 + 15000 * 12;
 
 const fmt = (n: number) => new Intl.NumberFormat('cs-CZ').format(Math.round(n));
-function pluralWeeks(n: number) {
-  if (n < 1.5) return 'týden';
-  if (n < 5) return 'týdny';
-  return 'týdnů';
+function pluralMonths(n: number) {
+  if (n < 2) return 'měsíc';
+  if (n < 5) return 'měsíce';
+  return 'měsíců';
 }
 
-const savedPerWeek = DEFAULTS.emailHours * 0.6 * DEFAULTS.people + DEFAULTS.docHours * 0.4 * DEFAULTS.people;
+const savedPerWeek = DEFAULTS.emailHours * 0.25 * DEFAULTS.people + DEFAULTS.docHours * 0.25 * DEFAULTS.people;
 const savedPerMonth = savedPerWeek * 4.33;
 const savedPerYear = savedPerWeek * 52;
 const moneyPerMonth = Math.round(savedPerMonth * DEFAULTS.hourlyRate);
 const moneyPerYear = Math.round(savedPerYear * DEFAULTS.hourlyRate);
-const roiWeeksRaw = (15000 / (savedPerWeek * DEFAULTS.hourlyRate)) * 10;
-const roiWeeks = isFinite(roiWeeksRaw) ? Math.round(roiWeeksRaw) / 10 : 0;
+const roiMonthsRaw = (FIRST_YEAR_COST / (savedPerYear * DEFAULTS.hourlyRate)) * 12;
+const roiMonths = isFinite(roiMonthsRaw) ? Math.max(1, Math.round(roiMonthsRaw)) : 0;
+const roiLabel = roiMonthsRaw > 0 && roiMonthsRaw < 1 ? 'necelý měsíc' : `${roiMonths} ${pluralMonths(roiMonths)}`;
 
 const initial = {
   yearHours: fmt(savedPerYear),
@@ -22,7 +24,7 @@ const initial = {
   weekHours: fmt(savedPerWeek),
   monthHours: fmt(savedPerMonth),
   monthMoney: fmt(moneyPerMonth),
-  roi: `${roiWeeks} ${pluralWeeks(roiWeeks)}`,
+  roi: roiLabel,
 };
 ---
 
@@ -60,9 +62,9 @@ const initial = {
         <div class="calc-slider">
           <div class="calc-slider__top">
             <label for="calc-people">Kolik lidí u vás má tuhle rutinu</label>
-            <span class="calc-slider__value" id="calc-people-value">8 <span></span></span>
+            <span class="calc-slider__value" id="calc-people-value">5 <span></span></span>
           </div>
-          <input type="range" id="calc-people" min="1" max="50" step="1" value="8" />
+          <input type="range" id="calc-people" min="1" max="50" step="1" value="5" />
           <div class="calc-slider__hint">Kdo opakovaně řeší podobné úkoly.</div>
         </div>
 
@@ -100,18 +102,19 @@ const initial = {
             >
           </div>
           <div class="calc__row calc__row--accent">
-            <span>Měsíční paušál se zaplatí za</span>
+            <span>Roční investice (230 000 Kč) se vrátí za</span>
             <strong><span id="calc-roi">{initial.roi}</span></strong>
           </div>
         </div>
 
         <a href="#kontakt" class="btn btn--blue btn--lg" style="width: 100%">
-          Domluvit hovor o vašem případu
+          Objednat diagnostiku
           <span class="arrow">→</span>
         </a>
         <p class="calc__disclaimer">
-          Výpočet je orientační. AI obvykle ušetří 40–60 % času na rutinních úkolech. Skutečnou úsporu spočítáme na
-          20min hovoru z vašich konkrétních procesů.
+          Výpočet je orientační a počítá s konzervativní úsporou cca 3–6 h týdně na člověka. U zhruba dvou z pěti
+          firem po diagnostice vyjde, že se to nevyplatí — to vám taky řeknu. Skutečnou úsporu spočítáme v
+          diagnostice z vašich konkrétních procesů.
         </p>
       </div>
     </div>
@@ -136,11 +139,13 @@ const initial = {
   const monthMoney = document.getElementById('calc-month-money') as HTMLElement;
   const roi = document.getElementById('calc-roi') as HTMLElement;
 
+  const FIRST_YEAR_COST = 50000 + 15000 * 12;
+
   const fmt = (n: number) => new Intl.NumberFormat('cs-CZ').format(Math.round(n));
-  function pluralWeeks(n: number) {
-    if (n < 1.5) return 'týden';
-    if (n < 5) return 'týdny';
-    return 'týdnů';
+  function pluralMonths(n: number) {
+    if (n < 2) return 'měsíc';
+    if (n < 5) return 'měsíce';
+    return 'měsíců';
   }
 
   function setSliderPct(input: HTMLInputElement) {
@@ -161,20 +166,21 @@ const initial = {
     peopleValue.innerHTML = `${fmt(people)} <span></span>`;
     rateValue.innerHTML = `${fmt(hourlyRate)} <span>Kč</span>`;
 
-    const savedPerWeek = emailHours * 0.6 * people + docHours * 0.4 * people;
+    const savedPerWeek = emailHours * 0.25 * people + docHours * 0.25 * people;
     const savedPerMonth = savedPerWeek * 4.33;
     const savedPerYear = savedPerWeek * 52;
     const moneyPerMonth = Math.round(savedPerMonth * hourlyRate);
     const moneyPerYear = Math.round(savedPerYear * hourlyRate);
-    const roiWeeksRaw = (15000 / (savedPerWeek * hourlyRate)) * 10;
-    const roiWeeks = isFinite(roiWeeksRaw) ? Math.round(roiWeeksRaw) / 10 : 0;
+    const roiMonthsRaw = (FIRST_YEAR_COST / (savedPerYear * hourlyRate)) * 12;
+    const roiMonths = isFinite(roiMonthsRaw) ? Math.max(1, Math.round(roiMonthsRaw)) : 0;
+    const roiLabel = roiMonthsRaw > 0 && roiMonthsRaw < 1 ? 'necelý měsíc' : `${roiMonths} ${pluralMonths(roiMonths)}`;
 
     yearHours.textContent = fmt(savedPerYear);
     yearMoney.textContent = fmt(moneyPerYear);
     weekHours.textContent = fmt(savedPerWeek);
     monthHours.textContent = fmt(savedPerMonth);
     monthMoney.textContent = fmt(moneyPerMonth);
-    roi.textContent = `${roiWeeks} ${pluralWeeks(roiWeeks)}`;
+    roi.textContent = roiLabel;
 
     [emailInput, docInput, peopleInput, rateInput].forEach(setSliderPct);
   }
