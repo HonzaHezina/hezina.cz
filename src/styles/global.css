@@ -1686,6 +1686,49 @@ p { margin: 0; text-wrap: pretty; }
   letter-spacing: 0.04em;
 }
 
+/* ---------- where it breaks ---------- */
+.breaks {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+.breaks__card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  padding: clamp(24px, 3vw, 32px);
+  display: flex; flex-direction: column;
+  gap: 20px;
+}
+.breaks__industry {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute);
+}
+.breaks__field p {
+  font-size: 15.5px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-top: 6px;
+}
+.breaks__label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--blue);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.breaks__field--why {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.breaks__field--why p {
+  color: var(--ink);
+  font-weight: 500;
+}
+
 /* ============================================================
    FAQ
    ============================================================ */

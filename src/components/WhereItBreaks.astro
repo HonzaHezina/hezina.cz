@@ -1,0 +1,66 @@
+---
+// TODO: nahradit BREAKS reálnými, anonymizovanými rozbory od klienta. Nefabrikovat.
+// Pro každou položku potřebuju: obor + velikost firmy, co si firma myslela, že je
+// problém, co byl problém ve skutečnosti, co se udělalo místo toho, a jednou větou proč
+// to "obvyklé" řešení nefungovalo. 2–3 položky stačí.
+const BREAKS = [
+  {
+    industry: 'TODO: obor firmy',
+    size: 'TODO: velikost (počet lidí)',
+    assumed: 'TODO: co si firma myslela, že je problém',
+    actual: 'TODO: co byl problém ve skutečnosti',
+    didInstead: 'TODO: co se udělalo místo toho',
+    whyNot: 'TODO: proč obvyklé řešení nefungovalo (jedna věta)',
+  },
+  {
+    industry: 'TODO: obor firmy',
+    size: 'TODO: velikost (počet lidí)',
+    assumed: 'TODO: co si firma myslela, že je problém',
+    actual: 'TODO: co byl problém ve skutečnosti',
+    didInstead: 'TODO: co se udělalo místo toho',
+    whyNot: 'TODO: proč obvyklé řešení nefungovalo (jedna věta)',
+  },
+];
+---
+
+<section class="section section--soft" id="kde-se-lame">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>Kde se to obvykle láme</span>
+      <h2>Než začnu stavět,<br />hledám skutečný problém.</h2>
+      <p>
+        Tohle nejsou reference — jsou to anonymizované rozbory z diagnostik. Co firma čekala, co se ve skutečnosti
+        ukázalo, a proč obvyklé řešení nefungovalo.
+      </p>
+    </div>
+
+    <div class="breaks">
+      {
+        BREAKS.map((b) => (
+          <div class="breaks__card">
+            <div class="breaks__industry">
+              {b.industry} · {b.size}
+            </div>
+
+            <div class="breaks__field">
+              <span class="breaks__label">Co firma čekala</span>
+              <p>{b.assumed}</p>
+            </div>
+            <div class="breaks__field">
+              <span class="breaks__label">Co byl problém ve skutečnosti</span>
+              <p>{b.actual}</p>
+            </div>
+            <div class="breaks__field">
+              <span class="breaks__label">Co se udělalo místo toho</span>
+              <p>{b.didInstead}</p>
+            </div>
+            <div class="breaks__field breaks__field--why">
+              <span class="breaks__label">Proč obvyklé řešení nefungovalo</span>
+              <p>{b.whyNot}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
