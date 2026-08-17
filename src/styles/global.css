@@ -636,7 +636,7 @@ p { margin: 0; text-wrap: pretty; }
 .about__creds {
   margin-top: 28px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 18px 28px;
   max-width: 560px;
 }
