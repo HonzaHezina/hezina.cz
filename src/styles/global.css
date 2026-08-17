@@ -2565,18 +2565,15 @@ p { margin: 0; text-wrap: pretty; }
   letter-spacing: -0.005em;
 }
 .nobs__list--strike li {
-  position: relative;
   color: oklch(0.58 0.012 250);
 }
-.nobs__list--strike li::after {
-  content: "";
-  position: absolute;
-  left: -4px; right: -4px;
-  top: 55%;
-  height: 2px;
-  background: oklch(0.78 0.14 30);
-  transform: rotate(-3deg);
-  pointer-events: none;
+.nobs__list--strike li::before {
+  content: "✕ ";
+  color: oklch(0.62 0.16 25);
+  font-style: normal;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  margin-right: 4px;
 }
 .nobs__col--in .nobs__list li {
   color: white;
