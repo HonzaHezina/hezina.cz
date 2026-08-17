@@ -297,6 +297,16 @@ p { margin: 0; text-wrap: pretty; }
   font-size: 13.5px; color: var(--ink-mute);
 }
 .hero__meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero__keyline {
+  margin-top: 24px;
+  padding-left: 16px;
+  border-left: 2px solid var(--blue);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.4vw, 19px);
+  color: var(--ink-soft);
+  max-width: 480px;
+}
 .hero__meta .check {
   width: 16px; height: 16px; border-radius: 50%;
   background: var(--blue-soft);
