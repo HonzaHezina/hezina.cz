@@ -1,15 +1,31 @@
 ---
 const SERVICES = [
   {
-    id: 'implementace',
+    id: 'diagnostika',
     tag: 'Hlavní služba',
-    title: 'Implementace AI asistenta',
-    lead: 'Postavím vám AI asistenta na míru. Napojený na vaše emaily, dokumenty a zakázky. Od prvního hovoru po běžící systém za 2–4 týdny.',
+    title: 'Provozní diagnostika',
+    lead: 'Než cokoli stavím, zjistím, kde vás to reálně brzdí. Ne kde si myslíte, že se to láme — kde se to láme doopravdy. Výstup je dokument, ne prodejní schůzka.',
     bullets: [
-      'Analýza, kde AI ušetří nejvíc času',
+      'Co automatizovat a co ne',
+      'Co se u vás rozbije dřív, než se dostanete k AI',
+      'Návrh prvního kroku — i bez mé další účasti',
+      'Cena je odečitatelná od implementace, pokud budeme pokračovat',
+    ],
+    price: '40 000 Kč',
+    priceNote: 'jednorázově · ~1 týden',
+    cta: 'Objednat diagnostiku →',
+    href: '#kontakt',
+  },
+  {
+    id: 'implementace',
+    tag: 'Navazující krok',
+    title: 'Implementace AI asistenta',
+    lead: 'Po diagnostice, pokud dává smysl, postavím vám AI asistenta na míru. Napojený na vaše emaily, dokumenty a zakázky. První funkční verze za 2–4 týdny od podpisu.',
+    bullets: [
       'Nastavení a napojení na vaše systémy',
       'Zaškolení vás i vašeho týmu',
       'Průběžný rozvoj a podpora',
+      'Plný efekt (AI zná firmu) přichází po ~2 měsících provozu',
     ],
     price: 'od 50 000 Kč',
     priceNote: '+ měsíční paušál',
@@ -32,22 +48,6 @@ const SERVICES = [
     cta: 'Domluvit termín →',
     href: '#kontakt',
   },
-  {
-    id: 'konzultace',
-    tag: 'Než se rozhodnete',
-    title: 'AI audit & konzultace',
-    lead: 'Než investujete do AI, podívám se, jestli to u vás dává smysl. Co automatizovat, co ne. Konkrétní doporučení do týdne.',
-    bullets: [
-      'Mapování vašich procesů',
-      'Co AI zvládne dnes vs. za rok',
-      'Konkrétní odhad úspory času',
-      'Návrh prvního kroku (i bez mé další účasti)',
-    ],
-    price: '20 000 Kč',
-    priceNote: 'jednorázově · 1 týden',
-    cta: 'Mám zájem →',
-    href: '#kontakt',
-  },
 ];
 ---
 
@@ -55,10 +55,10 @@ const SERVICES = [
   <div class="container">
     <div class="section-head">
       <span class="eyebrow"><span class="dot"></span>Co nabízím</span>
-      <h2>Tři způsoby,<br />jak vám můžu pomoct.</h2>
+      <h2>Nejdřív diagnostika.<br />Pak, pokud dává smysl, systém.</h2>
       <p>
-        Nemusíte hned skočit do plné implementace. Můžeme začít školením nebo auditem — podle toho, kde jste teď.
-        Vyberte si.
+        Diagnostika je vstupní bod — zjistí, jestli implementace vůbec dává smysl. Školení je samostatná volba,
+        pokud chcete tým naučit AI používat bez nasazování systému.
       </p>
     </div>
 
