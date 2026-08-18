@@ -38,6 +38,14 @@ Anti-buzzword tón — žádná "transformace", "disrupce", "AI-first", "synergi
 Žádné pseudopřesné statistiky ("0 Kč", "100 %") a žádné vymyšlené citace
 v `Cases` — jen ověřitelná čísla nebo tvrzení v textu.
 
+Primární CTA je jednotně **"Objednat diagnostiku"** napříč webem (CTAStrip,
+Contact submit) — telefon/email jsou sekundární kanál, ne vlastní CTA.
+
+Profesní historie (`About`, `Services`, `FAQ`) čerpá z Honzova LinkedIn/CV:
+E.ON, RWE, SZIF, Ministerstvo zemědělství, Komerční banka, T-Systems,
+Aegon, Česká spořitelna — jako kontext pro diagnostickou zkušenost, ne
+jako výčet loga. Plný seznam rolí/let v `/CLAUDE.md`.
+
 ## Tvrdá pravidla
 
 1. **Statický render nepřekročitelný.** `npm run build` → `dist/index.html`
@@ -49,8 +57,9 @@ v `Cases` — jen ověřitelná čísla nebo tvrzení v textu.
 4. **Obsahové změny jen přes schválený plán** — ne rozhodnutí za Honzu.
    `docs/MIGRATION_INVENTORY.md` je historický záznam původní 1:1 migrace,
    dnes už neplatí jako živé pravidlo. Fabrikovaný obsah (vymyšlené
-   případovky, citace) nesmí na produkci — viz `WhereItBreaks.astro`
-   (scaffold s TODO obsahem, záměrně nezapojený do `index.astro`).
+   případovky, citace) nesmí na produkci — `WhereItBreaks.astro` je dnes
+   zapojená s obecnými diagnostickými vzorci ze zadání, ale reálný
+   anonymizovaný příklad v ní čeká na dodání od Honzy (`TODO` v souboru).
 5. Jazyk webu = čeština, `<html lang="cs">`.
 6. Kontaktní formulář posílá přímo na `https://n8n.janagi.org/webhook/contact`
    z prohlížeče — žádný server endpoint.

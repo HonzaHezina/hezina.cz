@@ -65,6 +65,26 @@ trafficu — je to legitimizace ("není to amatér"), ne lead-gen trychtýř.
 - **Modelová čísla nejsou reference.** `Cases` obsahuje modelové scénáře
   (problem/solution/metrics popsané jako "modelová", ne měřená), bez citací
   přisuzovaných vymyšlené osobě ("— majitel firmy" apod.).
+- **Primární CTA je jednotně "Objednat diagnostiku"** napříč webem —
+  `CTAStrip` instance, `Contact` formulář (submit button), `CTAStrip.astro`
+  default prop. Telefon/email v kontaktní kartě jsou sekundární kanál, ne
+  samostatná CTA ("domluvit hovor" apod.). Nezavádět jinou formulaci CTA bez
+  zadání.
+- **Profesní historie je faktický základ diagnostické důvěryhodnosti**,
+  použitá v `About.astro` (organizace, role), `Services.astro` (školení od
+  2001), `FAQ.astro` (vendor lock-in u SZIF). Kanonický zdroj je Honzův
+  LinkedIn/CV: 2022–dnes nezávislý konzultant; 2018–2022 E.ON (Business
+  Architect, shared platforms); 2014–2018 RWE IT Czech (Manager, Cross
+  Applications); 2013–2014 RWE IS Czech (IT Team Lead); 2011–2013 T-Systems
+  (PM, portál BusinessInfo.cz); 2010–2011 SZIF (ředitel IT, řešil vendor
+  lock platební agentury); 2008–2010 Ministerstvo zemědělství (vedoucí
+  projektové kanceláře, eAGRI); 2006–2008 Aegon (course facilitator);
+  2005–2006 Komerční banka (business analyst); 2001–2005 Česká spořitelna
+  (lektor IT/bankovní aplikace). Certifikace: TOGAF 9.1 Foundation, ITIL
+  2011 Foundation, ICAgile/Scrum, business analýza. Používat jako kontext
+  pro diagnostickou schopnost ("viděl jsem tenhle vzorec v energetice i na
+  ministerstvu"), ne jako výčet zaměstnavatelů — rozdíl mezi zkušeností a
+  chlubením, viz Pravidla pro copy v zadáních.
 
 ## Tvrdá pravidla (neporušitelná)
 
